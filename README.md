@@ -307,6 +307,6 @@ Released under the [MIT License](LICENSE). See `LICENSE` for details.
 **Techvora** · Team ID `VTU-QFF-HC-0179` · Tier `Online`
 · Built with ⚛️ Qiskit for the VTU-QFF Hackathon
 
-[⬆ Back to Top](#Techvora)
+[⬆ Back to Top](#techvora)
 
 </div>

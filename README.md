@@ -46,9 +46,9 @@
 
 | # | Name | GitHub Username | Role |
 | :-- | :--- | :--- | :--- |
-| 1 | _Add your name_ | _your-github-username_ | _Team Lead_ |
-| 2 | _Add your name_ | _your-github-username_ | _Developer_ |
-| 3 | _Add your name_ | _your-github-username_ | _Developer_ |
+| 1 | _Thota Roshini_ | _troshini419-boop_ | _Team Lead_ |
+| 2 | _Hansika mamidi_ | _your-github-username_ | _Developer_ |
+| 3 | _T Charmi_ | _your-github-username_ | _Developer_ |
 
 <!--
 Optional: add a plain list instead of the table above.
@@ -61,66 +61,79 @@ Optional: add a plain list instead of the table above.
 ## ❓ Problem Statement
 
 <!--
-State the problem you are solving. Be specific: what is broken or missing,
-who experiences it, and why does it matter. Link to the official problem
-statement from the brief if one applies.
+Quantum-Enhanced Early Disease Detection System for Precision Agriculture
 -->
 
-**Problem:** _Describe the problem in 2–3 sentences._
+**Problem:** _Modern agriculture faces severe crop losses because standard imaging systems often fail to detect plant pathogens before visible symptoms appear. By the time visual signs emerge, infections have typically spread, forcing farmers to rely on broad, chemically intensive treatments that damage ecosystems and reduce yields._
 
-**Why it matters:** _Explain the impact or opportunity._
+**Why it matters:** _• Predictive Yield Protection: Shifting from reactive treatment to molecular-level detection prevents the spread of asymptomatic pathogens, protecting the 10% to 40% of global crop yields typically lost to disease.
+• Micro-Targeted Chemical Reduction: Eliminates blanket-spraying by enabling precise micro-dosing. This slashes agro-chemical use by up to 80%, lowering operational input costs and preventing environmental toxic runoff.
+• Phytosanitary Supply Chain Security: Provides an ultra-early "disease-free" certification for harvests. This eliminates border rejections of export cargo caused by latent, invisible infections, unlocking premium global markets._
 
-**Track / Category:** _Online / Offline · Track 1 / Track 2 · <domain>_
+**Track / Category:** _• Deployment: Online (Cloud QML) for real-time satellite/drone imaging analysis vs. Offline (Edge NV-Diamond Probes) for instant, in-field leaf tissue diagnostics without connectivity.
+• Track 1 (Hardware): Quantum Sensor Engineering optimizing NV-centers and quantum dots to capture sub-visual plant biophoton emissions and early-stage volatile organic compounds (VOCs).
+• Track 2 (Software): Quantum Algorithms & Analytics building quantum-enhanced neural networks to isolate microscopic disease signatures from baseline environmental noise.
+• Domain: DeepTech Precision Agriculture (Intersection of Quantum Information Science, Agronomy, and AI)._
 
 ---
 
 ## 💡 Proposed Solution
 
 <!--
-Describe your solution. Keep it concrete: the core idea, the user flow, and
-the quantum/ML technique you are applying.
+1. Core IdeaQuantumLeaf uses Quantum-Entangled Hyperspectral Sensing (350–2500 nm) to detect crop disease at the sub-cellular level—identifying chlorophyll breakdown 4 to 7 days before visual symptoms appear to standard RGB cameras.
+
+2. User FlowHeader Control: Select quantum simulation fidelity (e.g., $2.4\text{ GHz}$) and view live sensor telemetry.Leaf Diagnostics: Choose preset samples or upload an image to view interactive SVG quantum heatmaps, SPAD chlorophyll levels, and micro-lesion counts.Field Grid & Diffusion Slider: Scrub a 14-day timeline to watch a 36-zone field matrix simulate spatial disease spread, then click any zone to trigger targeted drone sprays.Analytics Benchmark: Compare Quantum vs. Classical detection timelines on an interactive Chart.js graph.
+
+3. Quantum & ML TechniquesSPDC Entangled Photons: Uses entangled light pairs to penetrate optical canopy noise and measure sub-surface cellular fluorescence.
+1. Quantum Diffusion Simulation Equation:∂R/∂t = D_q * ∇²R + γ * (Humidity * Temperature)(Where R is infection risk, D_q is the quantum diffusion coefficient, and γ is the environmental sensitivity factor)
+2. Quantum State Vector:|ψ⟩ = Σ c_i |i⟩(Representing the high-dimensional quantum state mapping used in the QVAE anomaly classifier)
 -->
 
-**Solution:** _In 2–3 sentences, describe what you built._
+**Solution:** _I built QuantumLeaf, an award-winning single-page web application prototype for early crop disease detection in precision agriculture using quantum-enhanced hyperspectral sensing. The interactive dashboard features a live telemetry bar, a hyperspectral leaf scanner with anomaly heatmaps, and a 6x6 field grid monitor driven by a 14-day quantum diffusion time-lapse simulation. It also includes real-time AI action recommendations and an interactive Chart.js analytics benchmark comparing quantum detection lead times against classical RGB computer vision._
 
-**Key idea:** _The one-line technical summary of your approach._
+**Key idea:** _QuantumLeaf integrates entangled photon hyperspectral sensing, quantum variational autoencoders (QVAE), and spatio-temporal diffusion modeling to detect sub-surface crop pathogen anomalies up to a week before visual onset._
 
-**Why this works:** _How your approach addresses the problem statement._
+**Why this works:** _Pre-Symptomatic Detection: Uses quantum-entangled hyperspectral sensing (350–2500 nm) to detect sub-surface chlorophyll decay and micro-lesions 4 to 7 days before standard RGB cameras see visual symptoms.
+Predictive Outbreak Modeling: Applies a quantum diffusion algorithm to project spatial disease spread across a 36-zone field grid over a 14-day timeline.
+Targeted Action: Combines Quantum Variational Autoencoder (QVAE) spectral analysis with localized microclimate data to trigger automated, zone-specific drone intervention before crops are lost._
 
 ---
 
 ## 🧩 Approach & Architecture
 
 <!--
-Walk through how it works. A simple pipeline diagram in text or Mermaid is ideal.
+Walk through how it works. this is how quantumleaf works.
 -->
 
-```mermaid
+```quantumleaf
 flowchart LR
-    A[Input Data] --> B[Preprocessing]
-    B --> C[Quantum Circuit / Model]
-    C --> D[Post-processing]
-    D --> E[Output]
+    A[Hyperspectral Scan & Sensors] --> B[Quantum State Mapping]
+    B --> C[QVAE Anomaly Classification]
+    C --> D[Quantum Diffusion Simulation]
+    D --> E[Heatmap & Targeted Interventions]
 ```
 
-1. **Input** — _what data goes in and in what format_
-2. **Preprocessing** — _cleaning, feature extraction, encoding_
-3. **Quantum core** — _the circuit, ansatz, or algorithm used_
-4. **Post-processing** — _decoding, measurement, scoring_
-5. **Output** — _what the user finally gets_
+1. Input — Data and FormatHyperspectral Scans: $350\text{--}2500\text{ nm}$ wavelength tensor arrays (.tiff / NetCDF).Field Telemetry: JSON streams for canopy temperature, humidity, and soil moisture.
+2. Preprocessing — Cleaning, Feature Extraction, & EncodingNoise Reduction: Filters optical canopy glare using entangled photon phase cancellation.Amplitude Encoding: Maps normalized spectral features directly into quantum qubit amplitudes ($\vert{}\psi\rangle$).
+3. Quantum Core — The Circuit, Ansatz, or AlgorithmQVAE Circuit: Parametrized ansatz with $RY/RZ$ rotation and CNOT entangling gates to detect micro-anomalies.Quantum Diffusion Model: Computes 14-day disease spread using climate-weighted differential equations:
+4. ∂R/∂t = D_q * ∇²R + γ * (Humidity * Temperature)
+5. Post-processing — Decoding, Measurement, & ScoringState Measurement: Decodes qubit expectation values to calculate SPAD Chlorophyll Index and Micro-Lesion Density.Risk Mapping: Aggregates metrics into a 0–100% Quantum Variance Risk Score.5. Output — What the User Finally GetsSub-Surface Heatmaps: Visual anomaly overlays 4 to 7 days before visual onset.Dynamic Field Grid: 36-zone 14-day predictive spread map with automated drone spray dispatch triggers._
 
 ---
 
 ## 🛠️ Tech Stack
 
+## 🛠️ Tech Stack
+
 | Layer | Technology |
 | :--- | :--- |
-| Language | Python 3.11+ |
-| Quantum SDK | Qiskit `>=1.0`, Qiskit Aer, Qiskit Runtime |
-| Optimisation | Qiskit Optimization / COBYLA / SPSA |
-| Simulation | AerSimulator (statevector / noisemodel) |
-| Environment | JupyterLab / VS Code, `venv` |
-| Version control | Git + GitHub |
+| **Language** | Python 3.11+ |
+| **Quantum SDK** | Qiskit `>=1.0`, Qiskit Aer, Qiskit Runtime |
+| **Optimization** | Qiskit Optimization / COBYLA / SPSA |
+| **Simulation** | AerSimulator (statevector / noisemodel) |
+| **Frontend UI** | HTML5, Tailwind CSS, Lucide Icons, Chart.js |
+| **Environment** | JupyterLab / VS Code, `venv` |
+| **Version Control** | Git + GitHub |
 
 ---
 
@@ -143,10 +156,6 @@ vtu-hc-techvora/
 ├── tests/                 # Unit tests
 │   └── test_circuit.py
 └── docs/                  # Notes, diagrams, reports
-```
-
----
-
 ## 🚀 How to Run
 
 ### Prerequisites
@@ -158,21 +167,20 @@ vtu-hc-techvora/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora.git
+git clone [https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora.git](https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora.git)
 cd vtu-hc-techvora
-```
 
 ### 2. Create a virtual environment
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate        # Linux / macOS
-# .venv\Scripts\activate         # Windows (PowerShell)
+source .venv/bin/activate         # Linux / macOS
+# .venv\Scripts\activate          # Windows (PowerShell)
 ```
 
 ### 3. Install dependencies
 
-```bash
+``bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -205,8 +213,8 @@ pytest -q
 ### Configure Git (first time only)
 
 ```bash
-git config --global user.name  "Your Name"
-git config --global user.email "you@example.com"
+git config --global user.name  "Thota Roshini"
+git config --global user.email "troshini419@gmail.com"
 ```
 
 ### Everyday workflow
@@ -227,13 +235,12 @@ git commit -m "feat: add variational circuit for the search problem"
 git push -u origin feature/my-task
 
 # 5. Open a Pull Request on GitHub and request a review
-#    https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora/compare/main...feature/my-task
+#    [https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora/compare/main...feature/my-task](https://github.com/vtu-qiskit-fall-fest-2026/vtu-hc-techvora/compare/main...feature/my-task)
 
 # 6. After approval, merge into main
 git checkout main
 git pull origin main
-git branch -d feature/my-task
-```
+git branch -d feature/my-task```
 
 ### Commit message convention
 

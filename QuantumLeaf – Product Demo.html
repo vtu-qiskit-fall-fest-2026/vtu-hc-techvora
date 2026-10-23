@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QuantumLeaf – Product Demo</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+ --bg:#f3f8f7;--fg:#0f172a;--muted:#475569;--card:#ffffff;--line:#cbd5e1;--accent:#0891b2;--accent2:#059669}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#050811;--fg:#f1f5f9;--muted:#94a3b8;--card:#0d1424;--line:#1e293b;--accent:#22d3ee;--accent2:#34d399}}
+:root[data-theme="dark"]{--bg:#050811;--fg:#f1f5f9;--muted:#94a3b8;--card:#0d1424;--line:#1e293b;--accent:#22d3ee;--accent2:#34d399}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100%}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 40px}
+.brand{font-weight:800;letter-spacing:.12em;font-size:clamp(26px,5vw,40px);margin:0;background:linear-gradient(90deg,var(--accent2),var(--accent),#60a5fa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand b{color:var(--fg);-webkit-text-fill-color:var(--fg)}
+.sub{color:var(--muted);margin:6px 0 20px;font-size:15px}
+.frame{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 10px 40px rgba(6,182,212,.12)}
+video{display:block;width:100%;max-width:100%;border-radius:10px;background:#000;aspect-ratio:16/10}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+h2{font-size:15px;margin:26px 0 8px;color:var(--accent)}
+ol{margin:0;padding-left:20px;color:var(--muted);line-height:1.8;font-size:14px}
+.note{margin-top:14px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1 class="brand">QUANTUM<b>LEAF</b></h1>
+  <p class="sub">Quantum-enhanced precision agriculture &middot; product walkthrough (about 1 min 20 s)</p>
+  <div class="frame">
+    <video id="v" controls playsinline preload="metadata" src="/_blob/536bfe348c824438108c9840be8d01a9"></video>
+  </div>
+  <div class="chips">
+    <span class="chip">QPU mode toggle</span><span class="chip">Hyperspectral leaf scanner</span><span class="chip">Custom image upload</span>
+    <span class="chip">Outbreak forecast slider</span><span class="chip">Zone inspector</span><span class="chip">Drone spray</span><span class="chip">Benchmark chart</span>
+  </div>
+  <h2>What the demo shows</h2>
+  <ol>
+    <li>Dashboard telemetry and the QPU architecture switch (128-qubit simulator vs noise-mitigated hardware).</li>
+    <li>Scanning Healthy, Early Blight, Late Blight and Rust Spot samples, with risk, SPAD, lesion density and recommendations updating live.</li>
+    <li>Uploading a custom leaf image for analysis.</li>
+    <li>Dragging the predictive timeline from Day 0 to Day 14 to watch risk spread across the 6&times;6 field matrix.</li>
+    <li>Opening Zone C3, reading its telemetry and dispatching a drone spray, then resetting the model.</li>
+    <li>The quantum vs classical benchmark chart in both views.</li>
+  </ol>
+  <p class="note">Recorded from the QuantumLeaf application file you provided.</p>
+</main>
+</body>
+</html>

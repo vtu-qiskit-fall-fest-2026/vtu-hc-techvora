@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumLeaf - Quantum-Enhanced Precision Agriculture</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        qgreen: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b'
+                        },
+                        qcyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            900: '#164e63'
+                        },
+                        qamber: '#f59e0b',
+                        qcrimson: '#ef4444',
+                        darkbg: '#070b12',
+                        cardbg: 'rgba(15, 23, 42, 0.75)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite alternate',
+                        'quantum-scan': 'quantumScan 3s linear infinite',
+                        'float': 'float 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 10px rgba(16, 185, 129, 0.2), inset 0 0 10px rgba(16, 185, 129, 0.1)' },
+                            '100%': { boxShadow: '0 0 25px rgba(6, 182, 212, 0.6), inset 0 0 15px rgba(6, 182, 212, 0.3)' }
+                        },
+                        quantumScan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+        body {
+            background-color: #050811;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(13, 20, 36, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(18, 28, 51, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Glowing accents */
+        .glow-border-green {
+            box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        .glow-border-cyan {
+            box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.4);
+            border-color: rgba(6, 182, 212, 0.5);
+        }
+
+        .glow-border-red {
+            box-shadow: 0 0 15px -3px rgba(239, 68, 68, 0.4);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #06b6d4;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+            box-shadow: 0 0 10px #06b6d4;
+            transition: all 0.2s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #10b981;
+            box-shadow: 0 0 15px #10b981;
+        }
+
+        /* Laser Scan Effect */
+        .scan-line {
+            background: linear-gradient(to bottom, rgba(6, 182, 212, 0) 0%, rgba(6, 182, 212, 0.6) 50%, rgba(16, 185, 129, 0.9) 100%);
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.8);
+        }
+
+        /* Pulse Nodes */
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+        .ripple-effect {
+            animation: ripple 2s infinite ease-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col relative selection:bg-qcyan-500 selection:text-black">
+
+    <!-- Background Quantum Grid Graphic -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20" 
+         style="background-image: radial-gradient(#06b6d4 1px, transparent 1px), radial-gradient(#10b981 1px, #050811 1px); background-size: 40px 40px; background-position: 0 0, 20px 20px;"></div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="relative z-10 flex flex-col min-h-screen max-w-[1700px] mx-auto w-full p-3 md:p-6 space-y-6">
+
+        <!-- ==================== HEADER & TELEMETRY BAR ==================== -->
+        <header class="glass-panel rounded-2xl p-4 md:p-5 flex flex-col lg:flex-row items-center justify-between gap-4 shadow-2xl border-cyan-500/20">
+            <!-- Brand & Status -->
+            <div class="flex items-center space-x-4 w-full lg:w-auto justify-between lg:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-qcyan-500/20 to-qgreen-500/20 border border-qcyan-500/40 animate-pulse-glow">
+                        <i data-lucide="atom" class="w-7 h-7 text-qcyan-400 animate-spin" style="animation-duration: 12s;"></i>
+                        <i data-lucide="sprout" class="w-4 h-4 text-qgreen-400 absolute"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h1 class="text-2xl font-bold tracking-wider bg-gradient-to-r from-qgreen-400 via-qcyan-400 to-blue-400 bg-clip-text text-transparent">
+                                QUANTUM<span class="font-extrabold text-white">LEAF</span>
+                            </h1>
+                            <span class="text-[10px] uppercase font-mono bg-qcyan-500/20 text-qcyan-400 px-2 py-0.5 rounded border border-qcyan-500/30">v3.4-QPU</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono flex items-center gap-2 mt-0.5">
+                            <span class="inline-block w-2 h-2 rounded-full bg-qgreen-500 animate-ping"></span>
+                            QPU Node #04 - Online | Entanglement Latency: <span class="text-qcyan-400 font-semibold" id="latency-val">1.2ms</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Simulation Mode Switcher -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg bg-slate-800 text-slate-300">
+                        <i data-lucide="sliders" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Central Telemetry Hardware Mode Toggle -->
+            <div class="flex items-center bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 w-full lg:w-auto justify-center">
+                <span class="text-xs font-mono text-slate-400 px-3 hidden sm:inline">QPU ARCHITECTURE:</span>
+                <button id="qpu-mode-standard" onclick="setQpuMode('128-sim')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-qcyan-500/20 text-qcyan-300 border border-qcyan-500/40 shadow-sm">
+                    128-Qubit Sim
+                </button>
+                <button id="qpu-mode-high" onclick="setQpuMode('noise-mitigation')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-400 hover:text-white transition-all duration-300">
+                    Noise-Mitigated Real-QPU
+                </button>
+            </div>
+
+            <!-- Top Level Telemetry Stat Chips -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full lg:w-auto text-xs font-mono">
+                <div class="glass-card p-2.5 rounded-xl border border-slate-800">
+                    <div class="text-slate-400 text-[10px] uppercase">Field Coverage</div>
+                    <div class="text-slate-100 font-bold text-sm flex items-center gap-1">
+                        <i data-lucide="map" class="w-3.5 h-3.5 text-qcyan-400"></i> 240 Ha
+                    </div>
+                </div>
+                <div class="glass-card p-2.5 rounded-xl border border-slate-800">
+                    <div class="text-slate-400 text-[10px] uppercase">Spectral Sensors</div>
+                    <div class="text-slate-100 font-bold text-sm flex items-center gap-1">
+                        <i data-lucide="wifi" class="w-3.5 h-3.5 text-qgreen-400"></i> 1,024 Active
+                    </div>
+                </div>
+                <div class="glass-card p-2.5 rounded-xl border border-slate-800">
+                    <div class="text-slate-400 text-[10px] uppercase">Mean Health Index</div>
+                    <div class="text-qgreen-400 font-bold text-sm flex items-center gap-1" id="mean-health-val">
+                        <i data-lucide="activity" class="w-3.5 h-3.5"></i> 92.4%
+                    </div>
+                </div>
+                <div class="glass-card p-2.5 rounded-xl border border-slate-800">
+                    <div class="text-slate-400 text-[10px] uppercase">Fidelity Index</div>
+                    <div class="text-qcyan-400 font-bold text-sm flex items-center gap-1" id="fidelity-val">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 99.84%
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== MAIN DASHBOARD CONTENT ==================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- LEFT COLUMN: LEAF SCANNER & SPECTRAL DIAGNOSTIC (5 Cols) -->
+            <section class="lg:col-span-5 flex flex-col space-y-5">
+                <div class="glass-panel rounded-2xl p-5 border-cyan-500/20 flex-1 flex flex-col justify-between">
+                    <div>
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="scan-line" class="w-5 h-5 text-qcyan-400"></i>
+                                <h2 class="text-lg font-bold tracking-wide text-white">Hyperspectral Quantum Scanner</h2>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-full border border-slate-700">
+                                Resolution: 0.1nm
+                            </span>
+                        </div>
+
+                        <!-- Sample Selector Bar -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-mono text-slate-400 uppercase mb-2">Select Diagnostic Sample Preset:</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                <button onclick="selectSample('healthy')" id="preset-healthy" class="preset-btn active border border-qgreen-500/60 bg-qgreen-500/10 text-qgreen-300 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-qgreen-500/20">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-qgreen-400"></i>
+                                    Healthy Leaf
+                                </button>
+                                <button onclick="selectSample('early_blight')" id="preset-early_blight" class="preset-btn border border-slate-800 bg-slate-900/60 text-slate-400 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-slate-800">
+                                    <i data-lucide="alert-triangle" class="w-4 h-4 text-qamber"></i>
+                                    Early Blight
+                                </button>
+                                <button onclick="selectSample('advanced_blight')" id="preset-advanced_blight" class="preset-btn border border-slate-800 bg-slate-900/60 text-slate-400 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-slate-800">
+                                    <i data-lucide="x-circle" class="w-4 h-4 text-qcrimson"></i>
+                                    Late Blight
+                                </button>
+                                <button onclick="selectSample('rust_spot')" id="preset-rust_spot" class="preset-btn border border-slate-800 bg-slate-900/60 text-slate-400 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-slate-800">
+                                    <i data-lucide="bug" class="w-4 h-4 text-orange-400"></i>
+                                    Rust Spot
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Visualizer Canvas / SVG Container -->
+                        <div class="relative w-full h-72 sm:h-80 rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden flex items-center justify-center group shadow-inner">
+                            
+                            <!-- Leaf Dynamic Graphic Canvas/SVG -->
+                            <div id="leaf-container" class="relative w-full h-full flex items-center justify-center p-4">
+                                <!-- Base SVG Leaf Artwork -->
+                                <svg id="leaf-svg" viewBox="0 0 400 300" class="w-full h-full max-h-64 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] transition-all duration-700">
+                                    <!-- Dynamic Leaf Outer Path -->
+                                    <path id="leaf-base-path" d="M 200,20 C 310,80 360,180 200,280 C 40,180 90,80 200,20 Z" 
+                                          fill="url(#leafGradientHealthy)" stroke="#10b981" stroke-width="2"/>
+                                    <!-- Leaf Veins -->
+                                    <path d="M 200,30 L 200,270 M 200,80 C 230,100 270,110 300,115 M 200,130 C 240,150 280,160 320,170 M 200,180 C 240,200 270,210 300,220 M 200,80 C 170,100 130,110 100,115 M 200,130 C 160,150 120,160 80,170 M 200,180 C 160,200 130,210 100,220" 
+                                          stroke="#34d399" stroke-width="1.5" opacity="0.4" fill="none" stroke-linecap="round"/>
+
+                                    <!-- SVG Gradients Definition -->
+                                    <defs>
+                                        <!-- Healthy Leaf Gradient -->
+                                        <linearGradient id="leafGradientHealthy" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#059669" />
+                                            <stop offset="50%" stop-color="#10b981" />
+                                            <stop offset="100%" stop-color="#022c22" />
+                                        </linearGradient>
+                                        <!-- Early Blight Gradient -->
+                                        <linearGradient id="leafGradientEarly" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#10b981" />
+                                            <stop offset="40%" stop-color="#84cc16" />
+                                            <stop offset="70%" stop-color="#d97706" />
+                                            <stop offset="100%" stop-color="#064e3b" />
+                                        </linearGradient>
+                                        <!-- Late Blight Gradient -->
+                                        <linearGradient id="leafGradientLate" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#d97706" />
+                                            <stop offset="40%" stop-color="#dc2626" />
+                                            <stop offset="80%" stop-color="#451a03" />
+                                            <stop offset="100%" stop-color="#18181b" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- QUANTUM SPECTRAL OVERLAY ANOMALIES (DYNAMICALLY TOGGLED VIA JS) -->
+                                    <g id="quantum-anomaly-overlay" class="transition-opacity duration-500 opacity-90">
+                                        <!-- Hotspot Nodes rendered by JS -->
+                                    </g>
+                                </svg>
+
+                                <!-- Quantum Laser Scanning Animation Overlay -->
+                                <div id="scanner-laser" class="absolute left-0 right-0 h-10 scan-line animate-quantum-scan pointer-events-none opacity-80"></div>
+                            </div>
+
+                            <!-- Floating Spectral HUD Indicators -->
+                            <div class="absolute top-3 left-3 bg-slate-900/90 border border-slate-700/80 rounded-lg p-2 font-mono text-[11px] space-y-1">
+                                <div class="text-slate-400 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-qcyan-400"></span> Phase Shift: <span id="hud-phase" class="text-qcyan-300 font-bold">0.042 rad</span>
+                                </div>
+                                <div class="text-slate-400 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-qgreen-400"></span> Bandpass: <span id="hud-band" class="text-qgreen-300 font-bold">730 nm</span>
+                                </div>
+                            </div>
+
+                            <div class="absolute bottom-3 right-3 bg-slate-900/90 border border-slate-700/80 rounded-lg p-2 font-mono text-[11px]">
+                                <span class="text-slate-400">Anomaly Index:</span> 
+                                <span id="hud-anomaly" class="text-qgreen-400 font-bold text-sm">3.1% (Low)</span>
+                            </div>
+
+                            <!-- Upload Custom Mock overlay button -->
+                            <div class="absolute top-3 right-3">
+                                <button onclick="triggerCustomUpload()" class="p-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition" title="Upload Custom Leaf Image">
+                                    <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                                </button>
+                                <input type="file" id="leaf-upload-input" class="hidden" accept="image/*" onchange="handleFileUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Spectral Breakdown Telemetry Bars -->
+                    <div class="mt-4 space-y-3 font-mono">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Quantum Variance Risk Score</span>
+                                <span id="val-risk" class="text-qgreen-400 font-bold">12% - Minimal</span>
+                            </div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div id="bar-risk" class="bg-gradient-to-r from-qgreen-500 to-qcyan-500 h-2 rounded-full transition-all duration-700" style="width: 12%"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 pt-1">
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-400">SPAD Chlorophyll</span>
+                                    <span id="val-spad" class="text-qgreen-400 font-bold">54.2</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                                    <div id="bar-spad" class="bg-qgreen-500 h-1.5 rounded-full transition-all duration-700" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-400">Micro-Lesion Density</span>
+                                    <span id="val-lesion" class="text-slate-300 font-bold">0.02 /cm²</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                                    <div id="bar-lesion" class="bg-qcyan-500 h-1.5 rounded-full transition-all duration-700" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic AI Quantum Action Recommendation Box -->
+                    <div id="recommendation-box" class="mt-4 p-3.5 rounded-xl bg-qgreen-900/20 border border-qgreen-500/30 flex items-start space-x-3 transition-all duration-500">
+                        <div class="p-2 rounded-lg bg-qgreen-500/20 text-qgreen-400 mt-0.5" id="rec-icon-bg">
+                            <i data-lucide="shield-check" class="w-5 h-5" id="rec-icon"></i>
+                        </div>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-qgreen-300 font-mono uppercase tracking-wider" id="rec-title">Optimal Homeostasis Detected</h4>
+                            <p class="text-slate-300 mt-0.5 leading-relaxed" id="rec-desc">
+                                Hyperspectral quantum shift shows zero fungal cell decay. Standard drip irrigation and Nitrogen cycle schedule maintained.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- RIGHT COLUMN: 6x6 FIELD GRID & PREDICTIVE QUANTUM TIME-LAPSE (7 Cols) -->
+            <section class="lg:col-span-7 flex flex-col space-y-5">
+                <div class="glass-panel rounded-2xl p-5 border-cyan-500/20 flex-1 flex flex-col justify-between">
+                    <div>
+                        <!-- Header & Grid Legend -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="grid" class="w-5 h-5 text-qcyan-400"></i>
+                                    <h2 class="text-lg font-bold tracking-wide text-white">Interactive Field Matrix Monitor</h2>
+                                </div>
+                                <p class="text-xs text-slate-400 font-mono mt-0.5">36 Telemetry Zones (Sector A1 - F6) • Live Heatmap</p>
+                            </div>
+
+                            <!-- Legend -->
+                            <div class="flex items-center space-x-3 text-[11px] font-mono bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-qgreen-500"></span> Healthy</span>
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-qamber"></span> Warning</span>
+                                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-qcrimson"></span> Critical</span>
+                            </div>
+                        </div>
+
+                        <!-- TIME-LAPSE QUANTUM SPREAD SIMULATION SLIDER -->
+                        <div class="glass-card p-4 rounded-xl border border-slate-800 mb-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-xs font-mono uppercase text-qcyan-400 font-bold flex items-center gap-2">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                    Predictive Outbreak Timeline Simulation
+                                </label>
+                                <span id="time-slider-val" class="text-sm font-mono font-bold bg-qcyan-500/20 text-qcyan-300 px-3 py-0.5 rounded-md border border-qcyan-500/40">
+                                    Day 0 (Current Sensor State)
+                                </span>
+                            </div>
+                            <input type="range" id="diffusion-slider" min="0" max="14" value="0" step="1" class="w-full cursor-pointer" oninput="updateDiffusionSimulation(this.value)">
+                            <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-1">
+                                <span>Day 0 (Now)</span>
+                                <span>Day 3 (Incipient Spread)</span>
+                                <span>Day 7 (Vector Surge)</span>
+                                <span>Day 14 (Max Contagion)</span>
+                            </div>
+                        </div>
+
+                        <!-- 6x6 FIELD MATRIX GRID -->
+                        <div class="grid grid-cols-6 gap-2 sm:gap-3 p-3 bg-slate-950/80 rounded-2xl border border-slate-800 shadow-2xl" id="field-grid">
+                            <!-- JS dynamically injects 36 Cell Buttons here -->
+                        </div>
+                    </div>
+
+                    <!-- Grid Info Summary Bar -->
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-400 gap-2">
+                        <div class="flex items-center space-x-4">
+                            <span>Sector Risk Avg: <span id="grid-risk-avg" class="text-qgreen-400 font-bold">4.2%</span></span>
+                            <span>Active Spore Focus: <span id="spore-count" class="text-slate-200 font-bold">Zone C3</span></span>
+                        </div>
+                        <div class="text-qcyan-400 flex items-center gap-1 cursor-pointer hover:underline" onclick="resetSimulation()">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset Quantum Simulation Model
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <!-- ==================== QUANTUM VS CLASSICAL BENCHMARK CHART ==================== -->
+        <section class="glass-panel rounded-2xl p-5 border-cyan-500/20 shadow-2xl">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-qcyan-400"></i>
+                        <h2 class="text-lg font-bold tracking-wide text-white">Quantum Hyperspectral Advantage Benchmark</h2>
+                    </div>
+                    <p class="text-xs text-slate-400 font-mono mt-0.5">Empirical comparison: Early Disease Detection & Lead Time Lead</p>
+                </div>
+
+                <!-- Toggle Benchmark View Mode -->
+                <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+                    <button id="btn-chart-lead" onclick="switchChartMode('lead')" class="px-3 py-1.5 rounded-lg font-medium transition bg-qcyan-500/20 text-qcyan-300 border border-qcyan-500/40">
+                        Detection Lead Time (Days)
+                    </button>
+                    <button id="btn-chart-wavelength" onclick="switchChartMode('wavelength')" class="px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition">
+                        Spectral Wavelength Resolution
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chart Container -->
+            <div class="relative w-full h-72 sm:h-80">
+                <canvas id="quantumChart"></canvas>
+            </div>
+
+            <!-- Metric Highlights -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-4 border-t border-slate-800/80 font-mono text-xs">
+                <div class="glass-card p-3 rounded-xl border border-slate-800 flex items-center space-x-3">
+                    <div class="p-2 rounded-lg bg-qcyan-500/20 text-qcyan-400">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-[10px]">PRE-SYMPTOMATIC LEAD TIME</div>
+                        <div class="text-white font-bold text-sm">+7.4 Days Faster</div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3 rounded-xl border border-slate-800 flex items-center space-x-3">
+                    <div class="p-2 rounded-lg bg-qgreen-500/20 text-qgreen-400">
+                        <i data-lucide="trending-down" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-[10px]">CROP LOSS REDUCTION</div>
+                        <div class="text-qgreen-400 font-bold text-sm">-88% Prevented Damage</div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3 rounded-xl border border-slate-800 flex items-center space-x-3">
+                    <div class="p-2 rounded-lg bg-purple-500/20 text-purple-400">
+                        <i data-lucide="droplet" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-[10px]">FUNGICIDE SPRAY SAVINGS</div>
+                        <div class="text-purple-300 font-bold text-sm">64% Target Precision</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-xs font-mono text-slate-500 py-4 flex flex-col sm:flex-row justify-between items-center border-t border-slate-800/60 gap-2">
+            <div>QuantumLeaf Platform v3.4 • Powered by Hyperspectral Quantum Sensing (QPU Node #04)</div>
+            <div class="flex items-center space-x-4">
+                <span class="hover:text-qcyan-400 cursor-pointer">API Specs</span>
+                <span class="hover:text-qcyan-400 cursor-pointer">Telemetry Logs</span>
+                <span class="hover:text-qcyan-400 cursor-pointer">QPU Calibration</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ==================== ZONE DETAIL INSPECTOR MODAL ==================== -->
+    <div id="zone-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-lg rounded-2xl border-cyan-500/30 p-6 shadow-2xl relative transform scale-95 transition-transform duration-300" id="modal-box">
+            
+            <!-- Close Button -->
+            <button onclick="closeZoneModal()" class="absolute top-4 right-4 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="p-3 rounded-xl bg-qcyan-500/20 text-qcyan-400 border border-qcyan-500/30" id="modal-icon-bg">
+                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white font-mono" id="modal-zone-id">Zone C3 Inspection</h3>
+                    <p class="text-xs text-slate-400 font-mono" id="modal-crop-type">Crop: Vine Tomato (Lycopersicon esculentum)</p>
+                </div>
+            </div>
+
+            <!-- Telemetry Details Grid -->
+            <div class="grid grid-cols-2 gap-3 font-mono text-xs mb-5">
+                <div class="glass-card p-3 rounded-xl border border-slate-800">
+                    <span class="text-slate-400 block text-[10px]">INFECTION RISK</span>
+                    <span id="modal-risk" class="text-qamber font-bold text-base">48.5% (Warning)</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-slate-800">
+                    <span class="text-slate-400 block text-[10px]">CANOPY TEMP</span>
+                    <span id="modal-temp" class="text-slate-200 font-bold text-base">22.4 °C</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-slate-800">
+                    <span class="text-slate-400 block text-[10px]">LEAF WETNESS DURATION</span>
+                    <span id="modal-wetness" class="text-slate-200 font-bold text-base">7.2 hrs</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-slate-800">
+                    <span class="text-slate-400 block text-[10px]">QUANTUM PHOTON YIELD</span>
+                    <span id="modal-yield" class="text-qcyan-400 font-bold text-base">0.842 Φ</span>
+                </div>
+            </div>
+
+            <!-- Micro-Intervention Log -->
+            <div class="mb-5">
+                <h4 class="text-xs font-mono uppercase text-slate-400 mb-2">Recommended Preventative Intervention:</h4>
+                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs leading-relaxed text-slate-300" id="modal-recommendation">
+                    Deploy micro-targeted bio-fungicide aerosol via autonomous drone in Sector C3 within 18 hours to neutralize incipient Alternaria spores.
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex space-x-3">
+                <button onclick="triggerDroneDeploy()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-qgreen-500 to-qcyan-500 hover:from-qgreen-600 hover:to-qcyan-600 text-black font-bold font-mono text-xs transition shadow-lg shadow-qcyan-500/20 flex items-center justify-center gap-2">
+                    <i data-lucide="navigation" class="w-4 h-4"></i> Trigger Drone Spray
+                </button>
+                <button onclick="closeZoneModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-mono text-xs transition">
+                    Dismiss
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // --- 1. DATA STATE MANAGEMENT ---
+        const samplePresets = {
+            healthy: {
+                title: "Healthy Apple Leaf",
+                risk: 12,
+                riskLabel: "12% - Minimal",
+                spad: 54.2,
+                lesion: "0.02 /cm²",
+                phase: "0.04rad",
+                band: "730nm",
+                anomaly: "1.2% (Low)",
+                leafGradient: "leafGradientHealthy",
+                leafStroke: "#10b981",
+                spots: [],
+                recTitle: "Optimal Homeostasis Detected",
+                recDesc: "Hyperspectral quantum shift shows zero fungal cell decay. Standard drip irrigation and Nitrogen cycle schedule maintained.",
+                recStyle: "bg-qgreen-900/20 border-qgreen-500/30 text-qgreen-300",
+                icon: "shield-check"
+            },
+            early_blight: {
+                title: "Early Alternaria Solani",
+                risk: 58,
+                riskLabel: "58% - Moderate Anomaly",
+                spad: 38.6,
+                lesion: "4.15 /cm²",
+                phase: "0.48rad",
+                band: "680nm",
+                anomaly: "34.8% (Elevated)",
+                leafGradient: "leafGradientEarly",
+                leafStroke: "#f59e0b",
+                spots: [
+                    { cx: 220, cy: 120, r: 18, color: "rgba(245, 158, 11, 0.6)", glow: "#f59e0b" },
+                    { cx: 160, cy: 180, r: 14, color: "rgba(245, 158, 11, 0.5)", glow: "#f59e0b" }
+                ],
+                recTitle: "Incipient Fungal Spore Activity",
+                recDesc: "Quantum phase shift detected sub-surface micro-lesions 6 days prior to visual symptoms. Deploy targeted bio-fungicide in Zone C3.",
+                recStyle: "bg-amber-900/20 border-amber-500/30 text-amber-300",
+                icon: "alert-triangle"
+            },
+            advanced_blight: {
+                title: "Advanced Phytophthora Infestans",
+                risk: 92,
+                riskLabel: "92% - Critical Outbreak",
+                spad: 18.2,
+                lesion: "18.90 /cm²",
+                phase: "1.24rad",
+                band: "620nm",
+                anomaly: "88.4% (Severe)",
+                leafGradient: "leafGradientLate",
+                leafStroke: "#ef4444",
+                spots: [
+                    { cx: 200, cy: 140, r: 42, color: "rgba(239, 68, 68, 0.7)", glow: "#ef4444" },
+                    { cx: 260, cy: 190, r: 28, color: "rgba(239, 68, 68, 0.8)", glow: "#ef4444" },
+                    { cx: 140, cy: 110, r: 22, color: "rgba(239, 68, 68, 0.6)", glow: "#ef4444" }
+                ],
+                recTitle: "Critical Fungal Necrosis Hazard",
+                recDesc: "Severe cell wall breakdown detected. Isolate Sector C immediately and initiate targeted emergency UAV intervention.",
+                recStyle: "bg-red-900/20 border-red-500/30 text-red-300",
+                icon: "x-circle"
+            },
+            rust_spot: {
+                title: "Puccinia Rust Spot",
+                risk: 74,
+                riskLabel: "74% - High Infection",
+                spad: 28.4,
+                lesion: "9.80 /cm²",
+                phase: "0.82rad",
+                band: "650nm",
+                anomaly: "62.1% (High)",
+                leafGradient: "leafGradientEarly",
+                leafStroke: "#f97316",
+                spots: [
+                    { cx: 180, cy: 90, r: 12, color: "rgba(249, 115, 22, 0.8)", glow: "#f97316" },
+                    { cx: 230, cy: 160, r: 15, color: "rgba(249, 115, 22, 0.8)", glow: "#f97316" },
+                    { cx: 150, cy: 210, r: 10, color: "rgba(249, 115, 22, 0.8)", glow: "#f97316" },
+                    { cx: 220, cy: 220, r: 14, color: "rgba(249, 115, 22, 0.8)", glow: "#f97316" }
+                ],
+                recTitle: "Rust Pustule Outbreak Detected",
+                recDesc: "Spectral absorbance shift at 650nm indicates rust pustules forming. Adjust bandpass filter and initiate spore containment protocol.",
+                recStyle: "bg-orange-900/20 border-orange-500/30 text-orange-300",
+                icon: "bug"
+            }
+        };
+
+        // 6x6 Field Matrix Base Data
+        let fieldZones = [];
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+        
+        function initFieldMatrixData() {
+            fieldZones = [];
+            for (let r = 0; r < 6; r++) {
+                for (let c = 1; c <= 6; c++) {
+                    const id = `${rows[r]}${c}`;
+                    // Epizootic center placed at C3
+                    let baseRisk = 2 + Math.floor(Math.random() * 5);
+                    if (id === 'C3') baseRisk = 65;
+                    if (id === 'C4' || id === 'B3' || id === 'D3') baseRisk = 25;
+
+                    fieldZones.push({
+                        id: id,
+                        row: r,
+                        col: c,
+                        baseRisk: baseRisk,
+                        currentRisk: baseRisk,
+                        crop: getCropForZone(r),
+                        temp: (21 + Math.random() * 3).toFixed(1),
+                        wetness: (5 + Math.random() * 4).toFixed(1),
+                        photonYield: (0.82 + Math.random() * 0.15).toFixed(3)
+                    });
+                }
+            }
+        }
+
+        function getCropForZone(r) {
+            const crops = [
+                "Vine Tomato (Lycopersicon)", 
+                "Heritage Apple (Malus domestica)", 
+                "Golden Corn (Zea mays)", 
+                "Soybean (Glycine max)", 
+                "Wine Grape (Vitis vinifera)", 
+                "Potato (Solanum tuberosum)"
+            ];
+            return crops[r];
+        }
+
+        let currentActiveZone = null;
+        let chartInstance = null;
+
+
+        // --- 2. INIT FUNCTION ---
+        window.onload = function() {
+            lucide.createIcons();
+            initFieldMatrixData();
+            renderFieldGrid();
+            initQuantumChart();
+            selectSample('healthy');
+
+            // Periodic Latency Jitter for Telemetry realism
+            setInterval(() => {
+                const lat = (1.0 + Math.random() * 0.4).toFixed(1);
+                const el = document.getElementById('latency-val');
+                if (el) el.innerText = `${lat}ms`;
+            }, 3000);
+        };
+
+
+        // --- 3. SAMPLE PRESET SWITCHER ---
+        function selectSample(key) {
+            const sample = samplePresets[key];
+            if (!sample) return;
+
+            // Active button UI state
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.className = "preset-btn border border-slate-800 bg-slate-900/60 text-slate-400 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-slate-800";
+            });
+            const activeBtn = document.getElementById(`preset-${key}`);
+            if (activeBtn) {
+                activeBtn.className = "preset-btn active border border-qcyan-500/60 bg-qcyan-500/10 text-qcyan-300 rounded-xl p-2 text-xs font-medium transition flex flex-col items-center gap-1 hover:bg-qcyan-500/20";
+            }
+
+            // Update Leaf Path Fill & Stroke
+            const path = document.getElementById('leaf-base-path');
+            if (path) {
+                path.setAttribute('fill', `url(#${sample.leafGradient})`);
+                path.setAttribute('stroke', sample.leafStroke);
+            }
+
+            // Render SVG Anomaly Spots
+            const overlay = document.getElementById('quantum-anomaly-overlay');
+            overlay.innerHTML = '';
+            sample.spots.forEach(spot => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', spot.cx);
+                circle.setAttribute('cy', spot.cy);
+                circle.setAttribute('r', spot.r);
+                circle.setAttribute('fill', spot.color);
+                circle.setAttribute('stroke', spot.glow);
+                circle.setAttribute('stroke-width', '2');
+                circle.setAttribute('class', 'animate-pulse');
+                overlay.appendChild(circle);
+            });
+
+            // Update Telemetry Numbers
+            document.getElementById('val-risk').innerText = sample.riskLabel;
+            document.getElementById('bar-risk').style.width = `${sample.risk}%`;
+
+            document.getElementById('val-spad').innerText = sample.spad;
+            document.getElementById('bar-spad').style.width = `${Math.min(100, sample.spad * 1.5)}%`;
+
+            document.getElementById('val-lesion').innerText = sample.lesion;
+            const lesionVal = parseFloat(sample.lesion);
+            document.getElementById('bar-lesion').style.width = `${Math.min(100, lesionVal * 5)}%`;
+
+            // HUD
+            document.getElementById('hud-phase').innerText = sample.phase;
+            document.getElementById('hud-band').innerText = sample.band;
+            document.getElementById('hud-anomaly').innerText = sample.anomaly;
+
+            // Recommendation Box Update
+            const recBox = document.getElementById('recommendation-box');
+            recBox.className = `mt-4 p-3.5 rounded-xl border flex items-start space-x-3 transition-all duration-500 ${sample.recStyle}`;
+            document.getElementById('rec-title').innerText = sample.recTitle;
+            document.getElementById('rec-desc').innerText = sample.recDesc;
+            
+            // Icon
+            const recIconBg = document.getElementById('rec-icon-bg');
+            recIconBg.innerHTML = `<i data-lucide="${sample.icon}" class="w-5 h-5"></i>`;
+            lucide.createIcons();
+        }
+
+
+        // --- 4. FIELD GRID & DIFFUSION SIMULATION ---
+        function renderFieldGrid() {
+            const gridContainer = document.getElementById('field-grid');
+            gridContainer.innerHTML = '';
+
+            let totalRisk = 0;
+
+            fieldZones.forEach(zone => {
+                totalRisk += zone.currentRisk;
+
+                const btn = document.createElement('button');
+                btn.onclick = () => openZoneModal(zone);
+
+                // Styling depending on risk
+                let colorClass = "bg-qgreen-500/20 border-qgreen-500/40 text-qgreen-300 hover:bg-qgreen-500/40";
+                let pulseEffect = "";
+
+                if (zone.currentRisk > 70) {
+                    colorClass = "bg-qcrimson/30 border-qcrimson text-red-200 hover:bg-qcrimson/50 glow-border-red";
+                    pulseEffect = "animate-pulse";
+                } else if (zone.currentRisk > 30) {
+                    colorClass = "bg-qamber/20 border-qamber/60 text-amber-200 hover:bg-qamber/40";
+                }
+
+                btn.className = `relative aspect-square rounded-xl border p-1 flex flex-col items-center justify-between font-mono text-[11px] transition-all duration-300 hover:scale-105 ${colorClass} ${pulseEffect}`;
+                
+                btn.innerHTML = `
+                    <span class="text-[10px] opacity-70 font-bold self-start">${zone.id}</span>
+                    <span class="font-bold text-xs">${Math.round(zone.currentRisk)}%</span>
+                    <span class="w-1.5 h-1.5 rounded-full ${zone.currentRisk > 70 ? 'bg-qcrimson' : zone.currentRisk > 30 ? 'bg-qamber' : 'bg-qgreen-400'}"></span>
+                `;
+
+                gridContainer.appendChild(btn);
+            });
+
+            // Update Mean Health Score in Header
+            const avgRisk = (totalRisk / fieldZones.length).toFixed(1);
+            document.getElementById('grid-risk-avg').innerText = `${avgRisk}%`;
+            document.getElementById('mean-health-val').innerText = `${(100 - avgRisk).toFixed(1)}%`;
+        }
+
+        // Quantum Diffusion Algorithm Simulation Slider
+        function updateDiffusionSimulation(days) {
+            document.getElementById('time-slider-val').innerText = `Day ${days} (${days == 0 ? 'Current State' : '+' + days + ' Days Predictive Spread'})`;
+
+            const dayNum = parseInt(days);
+
+            fieldZones.forEach(zone => {
+                // Quantum Cellular Diffusion Model: Risk propagates from epicenter C3 (row 2, col 3)
+                const epicenterRow = 2;
+                const epicenterCol = 3;
+                const distance = Math.sqrt(Math.pow(zone.row - epicenterRow, 2) + Math.pow(zone.col - epicenterCol, 2));
+
+                if (dayNum === 0) {
+                    zone.currentRisk = zone.baseRisk;
+                } else {
+                    // Spread wave equation
+                    const diffusionFactor = Math.max(0, (dayNum * 1.8) - (distance * 1.5));
+                    const newRisk = zone.baseRisk + (diffusionFactor * 18);
+                    zone.currentRisk = Math.min(98, Math.round(newRisk));
+                }
+            });
+
+            renderFieldGrid();
+        }
+
+        function resetSimulation() {
+            document.getElementById('diffusion-slider').value = 0;
+            updateDiffusionSimulation(0);
+        }
+
+
+        // --- 5. MODAL INTERACTION ---
+        function openZoneModal(zone) {
+            currentActiveZone = zone;
+            document.getElementById('modal-zone-id').innerText = `Zone ${zone.id} Diagnostic Telemetry`;
+            document.getElementById('modal-crop-type').innerText = `Crop: ${zone.crop}`;
+            
+            const riskEl = document.getElementById('modal-risk');
+            riskEl.innerText = `${Math.round(zone.currentRisk)}% (${zone.currentRisk > 70 ? 'Critical' : zone.currentRisk > 30 ? 'Warning' : 'Healthy'})`;
+            riskEl.className = zone.currentRisk > 70 ? 'text-qcrimson font-bold text-base' : zone.currentRisk > 30 ? 'text-qamber font-bold text-base' : 'text-qgreen-400 font-bold text-base';
+
+            document.getElementById('modal-temp').innerText = `${zone.temp} °C`;
+            document.getElementById('modal-wetness').innerText = `${zone.wetness} hrs`;
+            document.getElementById('modal-yield').innerText = `${zone.photonYield} Φ`;
+
+            // Dynamic Recommendation based on Zone Risk
+            const recEl = document.getElementById('modal-recommendation');
+            if (zone.currentRisk > 60) {
+                recEl.innerText = `[CRITICAL WARNING] Sector ${zone.id} displays advanced spore germination. Initiate immediate targeted drone bio-fungicide aerosol application within 12 hours to prevent horizontal field contamination.`;
+            } else if (zone.currentRisk > 25) {
+                recEl.innerText = `[ELEVATED RISK] Incipient quantum shift detected in Sector ${zone.id}. Reduce micro-irrigation by 15% and schedule targeted hyperspectral rescan in 24 hours.`;
+            } else {
+                recEl.innerText = `[NOMINAL] Sector ${zone.id} is healthy. Homeostasis index optimal. Continue standard automated precision monitoring schedule.`;
+            }
+
+            const modal = document.getElementById('zone-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeZoneModal() {
+            const modal = document.getElementById('zone-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function triggerDroneDeploy() {
+            if (!currentActiveZone) return;
+            alert(`[SIMULATION ACTION] Autonomous UAV Spray Fleet Dispatched to Sector ${currentActiveZone.id}. Targeted fungicide treatment queued.`);
+            closeZoneModal();
+        }
+
+
+        // --- 6. CHART.JS INTEGRATION ---
+        function initQuantumChart() {
+            const ctx = document.getElementById('quantumChart').getContext('2d');
+
+            const gradientClassical = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientClassical.addColorStop(0, 'rgba(239, 68, 68, 0.4)');
+            gradientClassical.addColorStop(1, 'rgba(239, 68, 68, 0.0)');
+
+            const gradientQuantum = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientQuantum.addColorStop(0, 'rgba(6, 182, 212, 0.5)');
+            gradientQuantum.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Infection Day 0', 'Day 2', 'Day 4', 'Day 6', 'Day 8 (Symptom Visible)', 'Day 10', 'Day 12'],
+                    datasets: [
+                        {
+                            label: 'Quantum Hyperspectral Sensing (Sensitivity)',
+                            data: [12, 48, 88, 96, 98, 99, 99],
+                            borderColor: '#06b6d4',
+                            backgroundColor: gradientQuantum,
+                            fill: true,
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#10b981'
+                        },
+                        {
+                            label: 'Classical RGB Computer Vision',
+                            data: [0, 2, 5, 18, 75, 88, 92],
+                            borderColor: '#ef4444',
+                            backgroundColor: gradientClassical,
+                            fill: true,
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#94a3b8',
+                                font: { family: 'JetBrains Mono', size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleColor: '#22d3ee',
+                            bodyColor: '#f1f5f9',
+                            borderColor: '#1e293b',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono' } },
+                            title: {
+                                display: true,
+                                text: 'Detection Sensitivity (%)',
+                                color: '#94a3b8',
+                                font: { family: 'JetBrains Mono', size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function switchChartMode(mode) {
+            if (!chartInstance) return;
+
+            const btnLead = document.getElementById('btn-chart-lead');
+            const btnWavelength = document.getElementById('btn-chart-wavelength');
+
+            if (mode === 'lead') {
+                btnLead.className = "px-3 py-1.5 rounded-lg font-medium transition bg-qcyan-500/20 text-qcyan-300 border border-qcyan-500/40";
+                btnWavelength.className = "px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition";
+
+                chartInstance.data.labels = ['Infection Day 0', 'Day 2', 'Day 4', 'Day 6', 'Day 8 (Symptom Visible)', 'Day 10', 'Day 12'];
+                chartInstance.data.datasets[0].data = [12, 48, 88, 96, 98, 99, 99];
+                chartInstance.data.datasets[1].data = [0, 2, 5, 18, 75, 88, 92];
+                chartInstance.options.scales.y.title.text = 'Detection Sensitivity (%)';
+            } else {
+                btnWavelength.className = "px-3 py-1.5 rounded-lg font-medium transition bg-qcyan-500/20 text-qcyan-300 border border-qcyan-500/40";
+                btnLead.className = "px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition";
+
+                chartInstance.data.labels = ['400nm (UV)', '500nm (Blue)', '600nm (Green)', '700nm (Red)', '800nm (NIR)', '900nm (SWIR)'];
+                chartInstance.data.datasets[0].data = [92, 98, 99, 95, 99, 97];
+                chartInstance.data.datasets[1].data = [15, 60, 80, 70, 20, 10];
+                chartInstance.options.scales.y.title.text = 'Spectral Resolution Efficiency (%)';
+            }
+
+            chartInstance.update();
+        }
+
+
+        // --- 7. QPU HARDWARE MODE TOGGLE ---
+        function setQpuMode(mode) {
+            const btnSim = document.getElementById('qpu-mode-standard');
+            const btnReal = document.getElementById('qpu-mode-high');
+            const fidEl = document.getElementById('fidelity-val');
+
+            if (mode === '128-sim') {
+                btnSim.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-qcyan-500/20 text-qcyan-300 border border-qcyan-500/40 shadow-sm";
+                btnReal.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-400 hover:text-white transition-all duration-300";
+                fidEl.innerText = "99.84%";
+            } else {
+                btnReal.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-qgreen-500/20 text-qgreen-300 border border-qgreen-500/40 shadow-sm";
+                btnSim.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-400 hover:text-white transition-all duration-300";
+                fidEl.innerText = "99.99%";
+            }
+        }
+
+
+        // --- 8. FILE UPLOAD MOCK ---
+        function triggerCustomUpload() {
+            document.getElementById('leaf-upload-input').click();
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Simulate Custom Image Diagnostic Analysis
+                selectSample('early_blight');
+                alert(`[SPECTRAL ANALYSIS COMPLETE] Custom leaf image "${file.name}" processed through QPU Node #04. Anomaly detected.`);
+            }
+        }
+    </script>
+</body>
+</html>

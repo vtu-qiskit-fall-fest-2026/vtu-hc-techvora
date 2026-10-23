@@ -47,8 +47,8 @@
 | # | Name | GitHub Username | Role |
 | :-- | :--- | :--- | :--- |
 | 1 | _Thota Roshini_ | _troshini419-boop_ | _Team Lead_ |
-| 2 | _Hansika mamidi_ | _your-github-username_ | _Developer_ |
-| 3 | _T Charmi_ | _your-github-username_ | _Developer_ |
+| 2 | _Hansika mamidi_ | _hansikamamidi64-oss_ | _Developer_ |
+| 3 | _T Charmi_ | _tolapicharmi08_ | _Developer_ |
 
 <!--
 Optional: add a plain list instead of the table above.
